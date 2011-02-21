@@ -4,7 +4,7 @@ delay="10m"
 script="/home/lh/.conky/scripts/gmail.pl"
 icon="/home/lh/.conky/gmail_icon.png"
 title="Gmail Notifier"
-link=false
+link=
 
 while true
 do
