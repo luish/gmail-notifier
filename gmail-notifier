@@ -1,0 +1,31 @@
+#!/bin/bash
+
+delay="10m"
+script="/home/lh/.conky/scripts/gmail.pl"
+icon="/home/lh/.conky/gmail_icon.png"
+title="Gmail Notifier"
+link=false
+
+while true
+do
+
+	gmail=$(perl $script n)
+
+	if [ $gmail -gt 0 ]
+	then
+		emails=$(perl $script s)
+		subjects=$(echo $emails | sed -r 's/From:[^"]+/\n/g')
+		
+		if [ $link ]
+		then
+			text=$(echo -ne "<b>$gmail new</b>\n$subjects\n\n<a href='http://mail.google.com'>Go to Gmail</a>")
+		else
+			text=$(echo -ne "<b>$gmail new</b>\n$subjects")
+		fi
+				
+		notify-send --urgency=critical --icon="$icon" "$title" "$text"
+	fi
+
+	sleep ${delay}
+
+done
